@@ -1,0 +1,44 @@
+---
+---
+
+<div
+  id="preloader"
+  class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
+  aria-live="polite"
+  aria-busy="true"
+  data-preloader
+>
+  <div class="relative flex flex-col items-center gap-8">
+    <svg
+      id="preloader-shield"
+      class="h-20 w-20 text-protected"
+      viewBox="0 0 80 88"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        id="preloader-path"
+        d="M40 6 L68 18 V42 C68 62 54 76 40 82 C26 76 12 62 12 42 V18 Z"
+        stroke="currentColor"
+        stroke-width="1.5"
+        fill="none"
+        pathLength="1"
+        style="stroke-dasharray: 1; stroke-dashoffset: 1;"
+      />
+    </svg>
+    <p
+      id="preloader-pct"
+      class="font-mono text-sm tracking-[0.35em] text-muted-foreground tabular-nums"
+    >
+      00
+    </p>
+    <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground/70">
+      Calibrando escudo
+    </p>
+  </div>
+  <div
+    id="preloader-particles"
+    class="pointer-events-none absolute inset-0 overflow-hidden opacity-0"
+    aria-hidden="true"
+  ></div>
+</div>

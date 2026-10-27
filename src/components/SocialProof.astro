@@ -1,0 +1,92 @@
+---
+const quotes = [
+  {
+    name: "Marina R.",
+    role: "Product manager",
+    text: "Por fin un seguro que no esconde el copago. La cotización me dejó el plan Equilibrio en menos de tres minutos.",
+    col: 0,
+  },
+  {
+    name: "Andrés V.",
+    role: "Fundador",
+    text: "El tono serio ayuda. No parece un marketplace de descuentos: parece un instrumento de protección.",
+    col: 1,
+  },
+  {
+    name: "Lucía P.",
+    role: "Diseñadora",
+    text: "Pasamos de un plan básico a Integral cuando nació nuestra hija. El comparador hizo obvia la diferencia.",
+    col: 2,
+  },
+  {
+    name: "Héctor M.",
+    role: "Ingeniero",
+    text: "Status signals en verde y ámbar: entiendo al instante qué está cubierto y qué requiere atención.",
+    col: 0,
+  },
+  {
+    name: "Sofía L.",
+    role: "Consultora",
+    text: "La atención humana respondió en el mismo día. El producto se siente premium de verdad.",
+    col: 1,
+  },
+  {
+    name: "Diego C.",
+    role: "Analista",
+    text: "Recomendé Escudo Cinético al equipo. Transparencia de coberturas sin PowerPoints eternos.",
+    col: 2,
+  },
+];
+
+const columns = [0, 1, 2].map((c) => quotes.filter((q) => q.col === c));
+---
+
+<section
+  id="confianza"
+  class="relative scroll-mt-24 overflow-hidden py-24 md:py-32"
+  data-section="social"
+>
+  <div class="container">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-protected">Confianza</p>
+      <h2 class="mt-3 font-display text-4xl text-foreground md:text-5xl">
+        Quienes ya calibraron su escudo
+      </h2>
+      <p class="mt-4 text-muted-foreground">
+        Testimonios en mampostería: cada columna se desplaza a ritmo distinto.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-5 md:grid-cols-3" data-masonry>
+      {
+        columns.map((col, ci) => (
+          <div class="flex flex-col gap-5" data-masonry-col data-col-index={ci}>
+            {col.map((q) => (
+              <blockquote
+                class="social-card rounded-2xl border border-border bg-card p-6 transition-[filter,opacity] duration-300"
+                data-social-card
+              >
+                <p
+                  class="text-sm leading-relaxed text-foreground/90"
+                  data-quote-text
+                  style="clip-path: inset(0 0 100% 0);"
+                >
+                  “{q.text}”
+                </p>
+                <footer class="mt-5 flex items-center justify-between border-t border-border/70 pt-4">
+                  <div>
+                    <cite class="not-italic text-sm font-semibold text-foreground">{q.name}</cite>
+                    <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                      {q.role}
+                    </p>
+                  </div>
+                  <span class="h-2 w-2 rounded-full bg-protected" aria-hidden="true" />
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

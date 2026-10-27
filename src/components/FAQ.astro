@@ -1,0 +1,71 @@
+---
+const faqs = [
+  {
+    q: "¿Cuánto tarda la cotización?",
+    a: "Tres preguntas y menos de tres minutos. Al terminar, el sistema recomienda un plan y puedes compararlo con los otros dos niveles.",
+  },
+  {
+    q: "¿Puedo cambiar de plan después?",
+    a: "Sí. Puedes subir o bajar de capa en renovación mensual. Te avisamos con señales de estado si hay periodos de carencia aplicables.",
+  },
+  {
+    q: "¿La cobertura incluye urgencias?",
+    a: "Todos los planes incluyen urgencias básicas. Equilibrio e Integral amplían hospitalización y especialistas sin derivación previa.",
+  },
+  {
+    q: "¿Es un producto real?",
+    a: "Escudo Cinético es una demo de marca premium para esta landing. El flujo de cotización ilustra la experiencia; no emite pólizas reales.",
+  },
+  {
+    q: "¿Cómo contacto soporte?",
+    a: "Escribe a hola@escudocinetico.example en horario laboral. Respuesta orientativa en el mismo día hábil.",
+  },
+];
+---
+
+<section
+  id="faq"
+  class="relative scroll-mt-24 overflow-hidden py-24 md:py-32"
+  data-section="faq"
+>
+  <div class="container max-w-3xl">
+    <div class="text-center">
+      <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-protected">FAQ</p>
+      <h2 class="mt-3 font-display text-4xl text-foreground md:text-5xl">
+        Preguntas con respuesta directa
+      </h2>
+    </div>
+
+    <div class="relative mt-12 space-y-3" data-faq-list>
+      <span
+        class="edge-scan pointer-events-none absolute -left-px top-0 h-full w-px origin-top scale-y-0 bg-protected/70"
+        data-faq-scan
+        aria-hidden="true"
+      ></span>
+      {
+        faqs.map((item, i) => (
+          <details
+            class="faq-item group relative overflow-hidden rounded-xl border border-border bg-card"
+            data-faq-item
+            open={i === 0}
+          >
+            <summary
+              class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left marker:content-none [&::-webkit-details-marker]:hidden"
+            >
+              <span class="text-sm font-semibold text-foreground sm:text-base">{item.q}</span>
+              <span
+                class="faq-icon flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-protected transition-transform"
+                aria-hidden="true"
+              >
+                +
+              </span>
+            </summary>
+            <div class="faq-panel px-5 pb-5 text-sm leading-relaxed text-muted-foreground" data-faq-panel>
+              {item.a}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

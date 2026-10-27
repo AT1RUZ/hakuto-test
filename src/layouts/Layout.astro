@@ -1,0 +1,192 @@
+---
+import { Font } from "astro:assets";
+import "../index.css";
+import Schema from "@/components/Schema.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Preloader from "@/components/Preloader.astro";
+import type { Thing, WithContext } from "schema-dts";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
+
+interface Props {
+	title?: string;
+	description?: string;
+	noindex?: boolean;
+	socialImageUrl?: string;
+	feedUrl?: string;
+	schema?: WithContext<Thing> | WithContext<Thing>[];
+	showPreloader?: boolean;
+}
+
+const ENABLE_WEBMCP = true;
+
+const { url } = Astro;
+const {
+	title: pageTitle,
+	description = SITE_DESCRIPTION,
+	noindex = false,
+	socialImageUrl,
+	feedUrl,
+	schema,
+	showPreloader = true,
+} = Astro.props;
+
+const title = pageTitle ? `${pageTitle} | ${SITE_NAME}` : SITE_NAME;
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href={url.href} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    {socialImageUrl && (
+      <meta property="og:image" content={socialImageUrl} />
+      <meta property="og:image:alt" content={title} />
+    )}
+    {feedUrl && (
+      <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href={feedUrl} />
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
+    <Font
+      cssVariable="--font-instrument-serif"
+      preload={[{ weight: "400", style: "normal", subset: "latin" }]}
+    />
+    <Font
+      cssVariable="--font-outfit"
+      preload={[{ weight: "400", style: "normal", subset: "latin" }]}
+    />
+    <Font cssVariable="--font-jetbrains-mono" />
+    {schema && (Array.isArray(schema)
+      ? schema.map((s) => <Schema item={s} />)
+      : <Schema item={schema} />
+    )}
+  </head>
+
+  <body class="min-h-screen bg-background text-foreground flex flex-col overflow-x-hidden">
+    {showPreloader && <Preloader />}
+    <Header />
+    <main class="flex-1 w-full">
+      <slot />
+    </main>
+    <Footer />
+
+    {ENABLE_WEBMCP && (
+      <script is:inline>
+        (function () {
+          var ctx =
+            (typeof document !== "undefined" && document.modelContext) ||
+            (typeof navigator !== "undefined" && navigator.modelContext);
+          if (!ctx || typeof ctx.registerTool !== "function") return;
+
+          function reply(value) {
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: typeof value === "string" ? value : JSON.stringify(value, null, 2),
+                },
+              ],
+            };
+          }
+
+          var pagefindPromise = null;
+          function loadPagefind() {
+            if (!pagefindPromise) {
+              pagefindPromise = import("/pagefind/pagefind.js").then(async (pf) => {
+                await pf.init();
+                return pf;
+              });
+              pagefindPromise.catch(() => {
+                pagefindPromise = null;
+              });
+            }
+            return pagefindPromise;
+          }
+
+          ctx.registerTool({
+            name: "search-site",
+            description:
+              "Búsqueda full-text en todas las páginas del sitio. Devuelve título, URL y extracto.",
+            inputSchema: {
+              type: "object",
+              properties: {
+                query: { type: "string", description: "Términos de búsqueda" },
+                limit: { type: "number", description: "Máximo de resultados (1-20, default 5)" },
+              },
+              required: ["query"],
+            },
+            async execute({ query, limit }) {
+              var max = Math.min(Math.max(Number(limit) || 5, 1), 20);
+              var pf;
+              try {
+                pf = await loadPagefind();
+              } catch (e) {
+                return reply(
+                  "Índice de búsqueda no disponible en este origen (se genera en build). Usa /sitemap-index.xml o /llms.txt.",
+                );
+              }
+              var search = await pf.search(String(query));
+              var results = await Promise.all(search.results.slice(0, max).map((r) => r.data()));
+              if (results.length === 0) {
+                return reply({ query: query, total: 0, results: [], message: "Sin coincidencias." });
+              }
+              return reply({
+                query: query,
+                total: search.results.length,
+                results: results.map((r) => ({
+                  title: (r.meta && r.meta.title) || r.url,
+                  url: new URL(r.url, window.location.origin).href,
+                  excerpt: String(r.excerpt || "").replace(/<[^>]+>/g, ""),
+                })),
+              });
+            },
+          });
+
+          ctx.registerTool({
+            name: "get-page-content",
+            description: "Obtiene el texto principal de la página actual.",
+            inputSchema: { type: "object", properties: {}, required: [] },
+            async execute() {
+              var main = document.querySelector("main");
+              return reply({
+                title: document.title,
+                url: window.location.href,
+                content: (main || document.body).innerText.slice(0, 4000),
+              });
+            },
+          });
+
+          ctx.registerTool({
+            name: "navigate",
+            description: "Navega a una ruta del sitio, p. ej. '/#cotizador'.",
+            inputSchema: {
+              type: "object",
+              properties: { path: { type: "string", description: "Ruta del sitio" } },
+              required: ["path"],
+            },
+            async execute({ path }) {
+              var target = new URL(String(path), window.location.origin);
+              if (target.origin !== window.location.origin) {
+                return reply("Rechazado: solo navegación en " + window.location.origin + ".");
+              }
+              window.location.href = target.href;
+              return reply("Navegando a " + target.pathname + ".");
+            },
+          });
+        })();
+      </script>
+    )}
+  </body>
+</html>

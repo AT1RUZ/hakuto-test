@@ -1,0 +1,100 @@
+---
+---
+
+<section
+  id="hero"
+  class="relative flex min-h-screen items-center overflow-hidden bg-gradient-hero pt-20"
+  data-section="hero"
+>
+  <div
+    id="kinetic-shield"
+    class="shield-blob pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(72vw,520px)] w-[min(72vw,520px)] -translate-x-1/2 -translate-y-1/2 border border-protected/25 bg-protected/[0.07] shadow-glow-protected"
+    data-shield
+    aria-hidden="true"
+  ></div>
+
+  <div class="container relative z-10 grid items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="max-w-2xl" data-hero-copy>
+      <p
+        class="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-protected"
+        data-split="chars"
+      >
+        Seguro de salud premium
+      </p>
+      <h1
+        class="font-display text-5xl leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+        data-split="words"
+      >
+        Protección que se mueve contigo
+      </h1>
+      <p
+        class="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground"
+        data-split="words"
+      >
+        Escudo Cinético traduce cobertura compleja en decisiones claras. Cotiza en minutos y elige
+        el plan con la precisión de un status signal — no de un eslogan.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-4" data-hero-cta>
+        <a
+          href="/#cotizador"
+          class="inline-flex h-12 items-center rounded-md bg-protected px-6 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          Iniciar cotización
+        </a>
+        <a
+          href="/#comparador"
+          class="inline-flex h-12 items-center rounded-md border border-border px-6 text-sm font-medium text-foreground/90 transition-colors hover:border-protected/50 hover:text-protected"
+        >
+          Comparar coberturas
+        </a>
+      </div>
+      <dl class="mt-12 grid grid-cols-3 gap-4 border-t border-border/70 pt-8 font-mono text-xs">
+        <div>
+          <dt class="text-muted-foreground">Tiempo medio</dt>
+          <dd class="mt-1 text-sm text-foreground">2:40 min</dd>
+        </div>
+        <div>
+          <dt class="text-muted-foreground">Estado</dt>
+          <dd class="mt-1 flex items-center gap-1.5 text-sm text-protected">
+            <span class="h-1.5 w-1.5 rounded-full bg-protected" aria-hidden="true"></span>
+            Protegido
+          </dd>
+        </div>
+        <div>
+          <dt class="text-muted-foreground">Planes</dt>
+          <dd class="mt-1 text-sm text-foreground">3 niveles</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-md" data-hero-visual data-parallax>
+      <div
+        class="relative aspect-square overflow-hidden border border-border/80 bg-surface/80 p-8 shadow-medium"
+        style="border-radius: 42% 58% 48% 52% / 52% 42% 58% 48%;"
+      >
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,hsl(151_100%_45%/0.15),transparent_55%)]"></div>
+        <div class="relative flex h-full flex-col justify-between">
+          <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            <span>Escudo activo</span>
+            <span class="text-protected">01</span>
+          </div>
+          <div>
+            <p class="font-display text-4xl text-foreground">Cobertura viva</p>
+            <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Un núcleo orgánico que se transforma con tu scroll: de esfera a formulario, de
+              formulario a cartas de cobertura.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="rounded-sm border border-protected/40 px-2 py-1 font-mono text-[10px] text-protected">
+              #00E676
+            </span>
+            <span class="rounded-sm border border-attention/40 px-2 py-1 font-mono text-[10px] text-attention">
+              #FFB300
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

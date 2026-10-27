@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Branding" description="Guía visual Escudo Cinético" noindex showPreloader={false}>
+  <div class="container py-24">
+    <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-protected">Style guide</p>
+    <h1 class="mt-3 font-display text-5xl text-foreground">Escudo Cinético</h1>
+    <p class="mt-4 max-w-2xl text-muted-foreground">
+      Dark Premium Insurance. Acentos de estado, tipografía editorial + geométrica, sin estética
+      crema ni violeta.
+    </p>
+
+    <section class="mt-16">
+      <h2 class="font-display text-2xl">Paleta</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-xl border border-border p-4">
+          <div class="h-20 rounded-lg bg-background border border-border"></div>
+          <p class="mt-3 font-mono text-xs">#050505 · background</p>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="h-20 rounded-lg bg-surface"></div>
+          <p class="mt-3 font-mono text-xs">#121212 · surface</p>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="h-20 rounded-lg bg-protected"></div>
+          <p class="mt-3 font-mono text-xs">#00E676 · protegido</p>
+        </div>
+        <div class="rounded-xl border border-border p-4">
+          <div class="h-20 rounded-lg bg-attention"></div>
+          <p class="mt-3 font-mono text-xs">#FFB300 · atención</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="font-display text-2xl">Tipografía</h2>
+      <div class="mt-6 space-y-6">
+        <p class="font-display text-4xl">Instrument Serif — display editorial</p>
+        <p class="font-sans text-xl">Outfit — UI geométrica y cuerpo</p>
+        <p class="font-mono text-sm tracking-wide">JetBrains Mono — datos y status</p>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="font-display text-2xl">Firma</h2>
+      <div
+        class="shield-blob mt-6 h-48 w-48 border border-protected/40 bg-protected/10 shadow-glow-protected"
+      ></div>
+      <p class="mt-4 text-sm text-muted-foreground">Escudo líquido — morph con scroll</p>
+    </section>
+  </div>
+</Layout>

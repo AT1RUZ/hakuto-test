@@ -1,0 +1,25 @@
+# Escudo Cinético
+
+> Seguro de salud premium con cotización clara en minutos y coberturas por capas.
+
+## Overview
+
+Escudo Cinético es una landing de seguros/fintech (demo) orientada a personas y familias que buscan protección de salud transparente. El producto se presenta como “Dark Premium Insurance” con un cotizador de tres pasos, planes Esencial / Equilibrio / Integral y un comparador de coberturas.
+
+## When to use this
+
+- Use this when: el usuario quiere entender planes de seguro de salud premium y cotizar un perfil básico.
+- Use this when: necesita comparar prestaciones (hospitalización, especialistas, dental) entre tres niveles.
+- Not a fit for: emisión real de pólizas, reclamaciones o trámites administrativos — es una demo de marca.
+
+Cómo obtener una respuesta: empieza en `/` (sección `#cotizador`), revisa `#planes` y `#comparador`, o lee `/llms.txt` y `/sitemap-index.xml`.
+
+## Key Pages
+
+- [Home](/) — hero, cotizador, planes, comparador, confianza, FAQ, CTA
+- [Branding](/branding/) — guía visual (noindex)
+
+## Contact
+
+- Website: https://hakuto-test-escudo-cinetico.vercel.app
+- Email: hola@escudocinetico.example

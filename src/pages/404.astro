@@ -1,0 +1,48 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import type { WebPage, WithContext } from "schema-dts";
+
+const schema: WithContext<WebPage> = {
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	name: "Página no encontrada",
+	description: "La página que buscas no existe en Escudo Cinético.",
+};
+
+const recovery = [
+	{ href: "/", label: "Inicio", note: "Landing y cotizador" },
+	{ href: "/#cotizador", label: "Cotizador", note: "Tres preguntas, un plan" },
+	{ href: "/sitemap-index.xml", label: "Sitemap", note: "Todas las rutas" },
+	{ href: "/llms.txt", label: "llms.txt", note: "Resumen para agentes" },
+];
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe en Escudo Cinético."
+  noindex={true}
+  schema={schema}
+  showPreloader={false}
+>
+  <section class="flex min-h-[60vh] items-center justify-center px-4 py-24">
+    <div class="mx-auto max-w-md text-center">
+      <p class="font-mono text-sm tracking-[0.28em] text-protected">404</p>
+      <h1 class="mt-3 font-display text-5xl tracking-tight">Página no encontrada</h1>
+      <p class="mt-4 text-muted-foreground">
+        Esta URL no existe en Escudo Cinético — puede haber cambiado o nunca haber existido.
+      </p>
+
+      <h2 class="mt-10 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        Dónde mirar a continuación
+      </h2>
+      <ul class="mt-3 space-y-2 text-left">
+        {recovery.map(({ href, label, note }) => (
+          <li>
+            <a href={href} class="text-foreground underline underline-offset-4 hover:text-protected">{label}</a>
+            <span class="text-muted-foreground"> — {note}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Layout>

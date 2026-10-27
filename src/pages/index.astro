@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Hero from "@/components/Hero.astro";
+import { Cotizador } from "@/components/Cotizador.tsx";
+import Resultados from "@/components/Resultados.astro";
+import Comparador from "@/components/Comparador.astro";
+import SocialProof from "@/components/SocialProof.astro";
+import FAQ from "@/components/FAQ.astro";
+import FinalCTA from "@/components/FinalCTA.astro";
+import { identitySchema } from "@/lib/schema";
+import { SITE_DESCRIPTION } from "@/lib/site";
+---
+
+<Layout description={SITE_DESCRIPTION} schema={identitySchema(Astro.site)}>
+  <Hero />
+  <Cotizador client:load />
+  <Resultados />
+  <Comparador />
+  <SocialProof />
+  <FAQ />
+  <FinalCTA />
+</Layout>
+
+<script>
+  import "@/scripts/motion.ts";
+</script>
